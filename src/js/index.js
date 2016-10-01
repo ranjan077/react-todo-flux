@@ -10,7 +10,7 @@ class TodoApp extends React.Component {
 			todos: [
 				{
 					id: 1,
-					text: 'Buy some milk'
+					text: 'Buy some milks'
 				},
 				{
 					id: 2,
@@ -27,8 +27,19 @@ class TodoApp extends React.Component {
 			return prevState.todos.push(tdod);
 		})
 	}
+	editTodo(index, newText) {
+		let newTodos  = this.state.todos.map(function(todo){
+			if(todo.id === index) {
+				todo.text = newText;
+			}
+			return todo;
+		})
+		this.setState({
+			todos: newTodos
+		});
+	}
 	deleteTodo(index) {
-		var newTodos = this.state.todos.filter(function(todo) {
+		let newTodos = this.state.todos.filter(function(todo) {
 			if (todo.id !== index) {
 				return todo;
 			}
@@ -44,7 +55,8 @@ class TodoApp extends React.Component {
 					<input type='button' value='Add' onClick={this.addTodo.bind(this)}/>
 					<div className="todos">
 						{
-							this.state.todos.map((todo) =>  <Todo text={todo.text} key={todo.id} index={todo.id} tododelete = {this.deleteTodo.bind(this)}/>)
+							this.state.todos.map((todo) =>  <Todo text={todo.text} key={todo.id} index={todo.id} tododelete = {this.deleteTodo.bind(this)}
+							edittodo={this.editTodo.bind(this)}/>)
 						}
 					</div>
 				</div>

@@ -1,0 +1,22 @@
+.todo {
+	height:50px;
+	.todo-input-wrapper {
+		padding: 10px;
+		float: left;
+		&.editable {
+			outline: 1px solid red;
+			
+		}
+	}
+	.todo-actions-wrapper {
+		padding: 10px;
+		float: left;
+		
+	}
+	.todo-input {
+		
+			border: none;
+			outline: none;
+		
+	}
+}
