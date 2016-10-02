@@ -40,7 +40,7 @@ class Todo extends React.Component {
 		return (
 				<div className='todo'>
 					<div className='todo-input-wrapper' ref={this.props.index + 'todo-input-warapper' }>
-						<input className='todo-input'  ref={this.props.index + 'todo-input' } readOnly={ this.state.editable ? '' : 'readOnly' } type='text' defaultValue={this.props.text} onBlur={this.makeReadOnly.bind(this)}></input>
+						<input className='todo-input'  ref={this.props.index + 'todo-input' } readOnly={ this.state.editable ? '' : 'readOnly' } type='text' defaultValue={this.props.text} ></input>
 					</div>
 					<div className='todo-actions-wrapper'>
 						{editSaveBtn}
