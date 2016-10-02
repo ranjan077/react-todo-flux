@@ -15,18 +15,19 @@ class Todo extends React.Component {
 			editable: true
 		})
 		
-		this.refs[this.props.index + 'todo-input'].focus(); 
+		
 	}
 	makeReadOnly() {
 		let selectedTodoDom = $(this.refs[this.props.index + 'todo-input-warapper']);
 		selectedTodoDom.removeClass('editable');
 		this.setState({
 			editable: false
-		})
+		});
 	}
 	 componentDidUpdate(){
-	 	console.log(this.props.index + 'todo-input-warapper');
-     	
+	 	if($(this.refs[this.props.index + 'todo-input-warapper']).hasClass('editable')) {
+	 		this.refs[this.props.index + 'todo-input'].focus(); 
+	 	}
     }
 	render() {
 		return (
