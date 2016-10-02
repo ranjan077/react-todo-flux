@@ -35,7 +35,7 @@ class Todo extends React.Component {
 			editSaveBtn = <input type='button' value='Edit'  onClick={this.displayEditField.bind(this)}/>;
 		}
 		else {
-			editSaveBtn = <input type='button' value='Save'  onClick={this.makeReadOnly.bind(this)}/>
+			editSaveBtn = <input type='button' value='Save'  onClick={this.props.edittodo.bind(null, this), this.makeReadOnly.bind(this)}/>
 		}
 		return (
 				<div className='todo'>
