@@ -52,7 +52,7 @@ class TodoApp extends React.Component {
 		return (
 				<div className='todo-container'>
 					<input type='text' ref='todoinput'/>
-					<input type='button' value='Add' onClick={this.addTodo.bind(this)}/>
+					<input type='button' value='Add' onClick={this.addTodo.bind(this)} className='add-todo-btn'/>
 					<div className="todos">
 						{
 							this.state.todos.map((todo) =>  <Todo text={todo.text} key={todo.id} index={todo.id} tododelete = {this.deleteTodo.bind(this)}

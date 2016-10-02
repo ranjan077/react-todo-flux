@@ -5,13 +5,18 @@
 		float: left;
 		&.editable {
 			outline: 1px solid red;
-			
+			background-color: #dde67c;
+			input {
+				background-color: #dde67c;
+			}
 		}
 	}
 	.todo-actions-wrapper {
 		padding: 10px;
 		float: left;
-		
+		input {
+		 	margin-left:10px;
+		 }
 	}
 	.todo-input {
 		
