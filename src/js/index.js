@@ -23,14 +23,18 @@ class TodoApp extends React.Component {
 		let tdod ={} 
 		tdod.text = $(this.refs.todoinput).val();
 		tdod.id = Date.now();
-		this.setState(function(prevState) {
-			return prevState.todos.push(tdod);
-		})
+		tdod.text = tdod.text.trim();
+		if(tdod.text) {
+			this.setState(function(prevState) {
+				return prevState.todos.push(tdod);
+			})
+		}
+		
 	}
-	editTodo(index, newText) {
+	editTodo(oldTodo) {
 		let newTodos  = this.state.todos.map(function(todo){
-			if(todo.id === index) {
-				todo.text = newText;
+			if(todo.id === oldTodo.props.index) {
+				todo.text = oldTodo.refs[oldTodo.props.index + 'todo-input'].value;
 			}
 			return todo;
 		})

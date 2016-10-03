@@ -8,6 +8,9 @@ class Todo extends React.Component {
 			editable: false
 		}
 	}
+	shouldComponentUpdate (nextProps, nextState) {
+	    return nextState.editable !== this.state.editable;
+	 }
 	displayEditField() {
 		let selectedTodoDom = $(this.refs[this.props.index + 'todo-input-warapper']);
 		selectedTodoDom.addClass('editable');
@@ -19,15 +22,22 @@ class Todo extends React.Component {
 	}
 	makeReadOnly() {
 		let selectedTodoDom = $(this.refs[this.props.index + 'todo-input-warapper']);
-		selectedTodoDom.removeClass('editable');
+		if(this.state.editable) {
+			selectedTodoDom.removeClass('editable');
 		this.setState({
 			editable: false
 		});
+		}
+		
 	}
 	 componentDidUpdate(){
 	 	if(this.state.editable) {
 	 		this.refs[this.props.index + 'todo-input'].focus(); 
 	 	}
+    }
+    save() {
+    	this.props.edittodo(this);
+    	this.makeReadOnly();
     }
 	render() {
 		let editSaveBtn;
@@ -35,7 +45,7 @@ class Todo extends React.Component {
 			editSaveBtn = <input type='button' value='Edit'  onClick={this.displayEditField.bind(this)}/>;
 		}
 		else {
-			editSaveBtn = <input type='button' value='Save'  onClick={this.props.edittodo.bind(null, this), this.makeReadOnly.bind(this)}/>
+			editSaveBtn = <input type='button' value='Save'  onClick={this.save.bind(this)}/>
 		}
 		return (
 				<div className='todo'>
