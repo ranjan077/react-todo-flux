@@ -2,55 +2,36 @@ import React from 'react';
 import $ from 'jquery';
 import ReactDom from 'react-dom';
 import Todo from './todo/todo.js';
+import TodoStore from './store/todoStore.js';
+import actions from './actions/todoActions.js';
 require('./todo-container.scss');
 class TodoApp extends React.Component {
 	constructor() {
 		super();
 		this.state ={
-			todos: [
-				{
-					id: 1,
-					text: 'Buy some milks'
-				},
-				{
-					id: 2,
-					text: 'Buy some chacolates'
-				}
-			]
+			todos: TodoStore.getAllTodos()
 		}
 	}
 	addTodo(e) {
-		let tdod ={} 
-		tdod.text = $(this.refs.todoinput).val();
-		tdod.id = Date.now();
-		tdod.text = tdod.text.trim();
-		if(tdod.text) {
-			this.setState(function(prevState) {
-				return prevState.todos.push(tdod);
-			})
-		}
-		
+		let text = $(this.refs.todoinput).val();
+		actions.createTodo(text);
 	}
 	editTodo(oldTodo) {
-		let newTodos  = this.state.todos.map(function(todo){
-			if(todo.id === oldTodo.props.index) {
-				todo.text = oldTodo.refs[oldTodo.props.index + 'todo-input'].value;
-			}
-			return todo;
-		})
-		this.setState({
-			todos: newTodos
-		});
+		actions.editTodo(oldTodo);
 	}
 	deleteTodo(index) {
-		let newTodos = this.state.todos.filter(function(todo) {
-			if (todo.id !== index) {
-				return todo;
-			}
-		})
+		actions.deleteTodo(index);
+	}
+	componentWillMount() {
+		TodoStore.on('change', this.getAllTodos.bind(this))
+	}
+	getAllTodos() {
 		this.setState({
-			todos: newTodos
+			todos: TodoStore.getAllTodos()
 		});
+	}
+	componentWillUnmount () {
+		TodoStore.removeListener('change', this.getAllTodos);
 	}
 	render () {
 		return (
