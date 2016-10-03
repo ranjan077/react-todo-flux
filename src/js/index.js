@@ -12,27 +12,34 @@ class TodoApp extends React.Component {
 			todos: TodoStore.getAllTodos()
 		}
 	}
+
+	componentWillMount() {
+		TodoStore.on('change', this.getAllTodos.bind(this))
+	}
+	
+	componentWillUnmount () {
+		TodoStore.removeListener('change', this.getAllTodos);
+	}
+	
 	addTodo(e) {
 		let text = $(this.refs.todoinput).val();
 		actions.createTodo(text);
 	}
+
 	editTodo(oldTodo) {
 		actions.editTodo(oldTodo);
 	}
+
 	deleteTodo(index) {
 		actions.deleteTodo(index);
 	}
-	componentWillMount() {
-		TodoStore.on('change', this.getAllTodos.bind(this))
-	}
+
 	getAllTodos() {
 		this.setState({
 			todos: TodoStore.getAllTodos()
 		});
 	}
-	componentWillUnmount () {
-		TodoStore.removeListener('change', this.getAllTodos);
-	}
+	
 	render () {
 		return (
 				<div className='todo-container'>
